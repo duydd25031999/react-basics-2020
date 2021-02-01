@@ -1,68 +1,131 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Folder Structure
+## "src" folder
+Chứa "index.js" và toàn bộ js, css của project
+### "index.js"
+import React & ReactDom
 
-## Available Scripts
+ReactDom.render ở đây
+```
+ReactDom.render(<BookList />, document.getElementById('root'));
+```
+## "public" folder
+Chứa các resource có thể truy cập trực tiếp qua URL
 
-In the project directory, you can run:
+base url = "%PUBLIC_URL%/..."
 
-### `npm start`
+### "index.html"
+root html của cả hệ thống
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+<body> chứa <div id="root">
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+# Basic react
+```
+import React from "react";
+import ReactDom from "react-dom";
 
-### `npm test`
+function Greeting() {
+  // muốn làm component thì phải return JSX
+  // return React.createElement('h4', {}, 'this is my first component')
+  return <h4>this is my first component</h4>;
+}
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+function Greeting() {
+  // muốn làm component thì phải return JSX
+  // return React.createElement('div', {}, React.createElement('h4', {}, 'this is my first component'))
+  return (
+    // chỉ có 1 tag là root tag
+    <div> 
+      <h4>this is my first component</h4>;
+    </div>
+  );
+}
 
-### `npm run build`
+function Greeting() {
+  return (
+    // React.Fragment = tag nhưng không tạo ra html node 
+    // React.Fragment = <template> trong Vue
+    <React.Fragment>
+      {/* className vì class */}
+      <h3 className='' >hello people</h3> 
+      <ul>
+        <li>
+          <a href="#">hello world</a>
+        </li> 
+      </ul>
+    </React.Fragment>
+  );
+}
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+const Person = () => <h1>Person A</h1>
+const Message = () => {
+  return <p>this is a message</p>
+}
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+function Greeting() {
+  return <div>
+    <Person />
+    <Message />
+  </div>
+}
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const global = {
+  img:
+   'https://images-na.ssl-images-amazon.com/images/I/81eB%2B7%2BCkUL._AC_UL200_SR200,200_.jpg',
+  title: 'I Love You to the Moon and Back',
+  author: 'Amelia Hepworth',
+}
 
-### `npm run eject`
+function BookList() {
+  return (
+    <section>
+      <Book job={`developer`} />
+    </section>
+  )
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+const Book = (props) => {
+  return <article>
+    {/* component có thể nhận giá trị từ global variable */}
+    <img src={global.img} /> 
+    <h1>{global.title}</h1>
+    <h4>{global.author}</h4>
+    <p>{props.job}</p>
+    <p>{props.title}</p>
+  </article>
+}
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+// CSS
+import './index.css';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+import {data} from './books'
+import SpecificBook from './Book'
+import {greeting} from './testing/testing'
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+function BookList() {
+  console.log(greeting);
 
-## Learn More
+  function listBooks() {
+    const bookElements = data.map((book, index) => {
+      return <SpecificBook key={book.id} {...book}></SpecificBook>;
+    })
+    return bookElements
+  }
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  return (
+    <section className='booklist'>
+      {/* {data.map((book, index) => {
+        return <SpecificBook key={book.id} {...book}></SpecificBook>;
+      })} */}
+      {listBooks()}
+    </section>
+  );
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ReactDom.render(
+  <BookList />, //gọi root component dưới dạng tag
+  document.getElementById("root") //reference tới 1 html elemenet cụ thể trong <body>
+);
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```
