@@ -20,112 +20,48 @@ root html của cả hệ thống
 <body> chứa <div id="root">
 ```
 
-# Basic react
+# React from 'react'
+## React.createElement
+Tạo Component thủ công = js
+
+muốn làm component thì phải return JSX
+- chỉ có 1 tag là root tag
+
+component có thể nhận giá trị từ global variable
 ```
-import React from "react";
-import ReactDom from "react-dom";
+<img src={global.img} /> 
+```
 
-function Greeting() {
-  // muốn làm component thì phải return JSX
-  // return React.createElement('h4', {}, 'this is my first component')
-  return <h4>this is my first component</h4>;
-}
-
-function Greeting() {
-  // muốn làm component thì phải return JSX
-  // return React.createElement('div', {}, React.createElement('h4', {}, 'this is my first component'))
-  return (
-    // chỉ có 1 tag là root tag
-    <div> 
-      <h4>this is my first component</h4>;
-    </div>
-  );
-}
-
-function Greeting() {
-  return (
-    // React.Fragment = tag nhưng không tạo ra html node 
-    // React.Fragment = <template> trong Vue
-    <React.Fragment>
-      {/* className vì class */}
-      <h3 className='' >hello people</h3> 
-      <ul>
-        <li>
-          <a href="#">hello world</a>
-        </li> 
-      </ul>
-    </React.Fragment>
-  );
-}
-
-const Person = () => <h1>Person A</h1>
-const Message = () => {
-  return <p>this is a message</p>
-}
-
-function Greeting() {
-  return <div>
-    <Person />
-    <Message />
-  </div>
-}
-
-const global = {
-  img:
-   'https://images-na.ssl-images-amazon.com/images/I/81eB%2B7%2BCkUL._AC_UL200_SR200,200_.jpg',
-  title: 'I Love You to the Moon and Back',
-  author: 'Amelia Hepworth',
-}
-
-function BookList() {
-  return (
-    <section>
-      <Book job={`developer`} />
-    </section>
-  )
-}
-
-const Book = (props) => {
-  return <article>
-    {/* component có thể nhận giá trị từ global variable */}
-    <img src={global.img} /> 
-    <h1>{global.title}</h1>
-    <h4>{global.author}</h4>
-    <p>{props.job}</p>
-    <p>{props.title}</p>
-  </article>
-}
-
-// CSS
-import './index.css';
-
-import {data} from './books'
-import SpecificBook from './Book'
-import {greeting} from './testing/testing'
-
-function BookList() {
-  console.log(greeting);
-
-  function listBooks() {
-    const bookElements = data.map((book, index) => {
-      return <SpecificBook key={book.id} {...book}></SpecificBook>;
-    })
-    return bookElements
-  }
-
-  return (
-    <section className='booklist'>
-      {/* {data.map((book, index) => {
-        return <SpecificBook key={book.id} {...book}></SpecificBook>;
-      })} */}
-      {listBooks()}
-    </section>
-  );
-}
-
+```
 ReactDom.render(
   <BookList />, //gọi root component dưới dạng tag
   document.getElementById("root") //reference tới 1 html elemenet cụ thể trong <body>
 );
+```
 
+## React.Fragment
+React.Fragment = tag nhưng không tạo ra html node 
+- React.Fragment = \<template\> trong Vue
+
+## React.StrictMode
+Strict Mode = Fragment + nghiêm ngặt kiểm tra log | lifecycle của hệ thống
+
+## React.useState
+khi truyền thủ công variable vào JSX thì update variable đó sẽ KO THAY ĐỔI VALUE trêm UI
+- Cần sử dụng 1 func chuyên dụng để update variable
+
+`React.useState` = Builder func
+- usestate() => manage variable => return array[2]
+- array[0] = value của state, reference
+- array[1] = function control value => value tự thay đổi theo reference
+- không thể tự động cập nhật value
+
+`setState(value)` cần truyền vào value mới hoàn toàn
+- Array thì phải tạo array mới rồi truyền vào `setState(value)`
+- Object thì {...obj_cũ, value_mới}
+
+# Event
+chỉ chuyền function vào event
+```
+onClick={() => setPeople([])}
 ```

@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDom from "react-dom";
+// import React from "react";
+// import ReactDom from "react-dom";
 
 // function Greeting() {
 //   // muốn làm component thì phải return JSX
@@ -73,33 +73,48 @@ import ReactDom from "react-dom";
 // }
 
 // CSS
+// import './index.css';
+
+// import {data} from './books'
+// import SpecificBook from './Book'
+// import {greeting} from './testing/testing'
+
+// function BookList() {
+//   console.log(greeting);
+
+//   function listBooks() {
+//     const bookElements = data.map((book, index) => {
+//       return <SpecificBook key={book.id} {...book}></SpecificBook>;
+//     })
+//     return bookElements
+//   }
+
+//   return (
+//     <section className='booklist'>
+//       {/* {data.map((book, index) => {
+//         return <SpecificBook key={book.id} {...book}></SpecificBook>;
+//       })} */}
+//       {listBooks()}
+//     </section>
+//   );
+// }
+
+// ReactDom.render(
+//   <BookList />, //gọi root component dưới dạng tag
+//   document.getElementById("root") //reference tới 1 html elemenet cụ thể trong <body>
+// );
+
+import React from 'react';
+import ReactDOM from 'react-dom';
 import './index.css';
+import App from './App';
 
-import {data} from './books'
-import SpecificBook from './Book'
-import {greeting} from './testing/testing'
-
-function BookList() {
-  console.log(greeting);
-
-  function listBooks() {
-    const bookElements = data.map((book, index) => {
-      return <SpecificBook key={book.id} {...book}></SpecificBook>;
-    })
-    return bookElements
-  }
-
-  return (
-    <section className='booklist'>
-      {/* {data.map((book, index) => {
-        return <SpecificBook key={book.id} {...book}></SpecificBook>;
-      })} */}
-      {listBooks()}
-    </section>
-  );
-}
-
-ReactDom.render(
-  <BookList />, //gọi root component dưới dạng tag
-  document.getElementById("root") //reference tới 1 html elemenet cụ thể trong <body>
+ReactDOM.render(
+  // Strict Mode = Fragment + nghiêm ngặt kiểm tra log | lifecycle của hệ thống
+  <React.StrictMode> 
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
 );
+
+
