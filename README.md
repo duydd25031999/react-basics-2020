@@ -167,6 +167,32 @@ function Child() {
 }
 ```
 
+## React.memo
+`React.memo` = components builder mà component sẽ chỉ render 1 lần, không render lại
+
+```
+function MyComponent(props) {
+  /* Render sử dụng props */
+}
+
+function areEqual(prevProps, nextProps) {
+  /* Trả về true nếu nextProps bằng prevProps, ngược lại trả về false */
+  true thì ko render, false thì render
+}
+
+export default React.memo(MyComponent, areEqual);
+```
+
+tuy nhiên khi truyền 1 function vào props của 1 memo component thì memo lại tự render
+
+## React.useCallback
+Function Builder cho props của memo components
+- Khi dùng useCallback thì event ở parent của memo component ko re-render
+- Nhưng event của memo component vẫn làm re-render
+
+## React.useMemo
+Tạo ra 1 const không bị khai báo lại khi re-render
+
 # Tip
 ## show
 Show normal
@@ -188,7 +214,7 @@ onClick={() => setPeople([])}
 
 # react-router-dom
 
-## <BrowserRouter>
+## `<BrowserRouter>`
 `BrowserRouter as Router` là parent component chứa các trang khác khi routing
 
 ```
@@ -212,13 +238,13 @@ Router>
 </Router>
 ```
 
-## <Switch>
+## `<Switch>`
 Chứa các `<Route>` để chuyển giữa các `<Route>`
 
-## <Route>
+## `<Route>`
 Mỗi `<Route>` tương ứng với 1 trang
 
-## <Redirect>
+## `<Redirect>`
 Dùng để redirect
 - Nằm trong `<Route>`
 
@@ -228,5 +254,5 @@ Dùng để redirect
 </Route>
 ```
 
-## <Link>
+## `<Link>`
 `<a>` để routing
