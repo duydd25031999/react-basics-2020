@@ -1,6 +1,6 @@
 import React from "react";
-import Setup from "./tutorial/1-useState/setup/5-useState-counter";
-import Final from "./tutorial/1-useState/final/5-useState-counter";
+import Setup from "./tutorial/11-react-router/setup/index";
+import Final from "./tutorial/11-react-router/final/index";
 
 function App() {
   // App component = class Main
